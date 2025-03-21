@@ -1,7 +1,11 @@
+import PropTypes from "prop-types";
+import validateProps from "@/utils/validateProps";
 import ProfileIcon from "@/components/icons/ProfileIcon";
 import styles from "./UserProfile.module.css";
 
 function UserProfile({ userId, name, avatar }) {
+  validateProps(UserProfile, { userId, name, avatar });
+
   return (
     <div className={styles.userProfile}>
       <div className={styles.user}>
@@ -25,5 +29,11 @@ function UserProfile({ userId, name, avatar }) {
     </div>
   );
 }
+
+UserProfile.propTypes = {
+  userId: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired,
+};
 
 export default UserProfile;

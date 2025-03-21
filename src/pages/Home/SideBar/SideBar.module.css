@@ -1,0 +1,53 @@
+.sideBar {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 1.125rem;
+    width: 15rem;
+    height: 100%;
+    background-color: var(--secondary-color);
+}
+
+.homeNav,
+.directMessages {
+    margin: 0.5rem;
+}
+
+.homeNav > * {
+    display: flex;
+    padding: 0.625rem 0rem 0.625rem 0.75rem;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 0.3125rem;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--hover-color);
+    }
+}
+
+.directMessages {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    /* padding: 0 0.5rem; */
+}
+
+.directMessagesHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+
+    button {
+        line-height: 0;
+    }
+}
+
+.userProfile {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

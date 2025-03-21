@@ -1,0 +1,155 @@
+/* gg sans */
+
+@font-face {
+    font-family: "gg sans";
+    src: url("./ggsans/ggsans-Normal.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "gg sans";
+    src: url("./ggsans/ggsans-NormalItalic.woff2") format("woff2");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "gg sans";
+    src: url("./ggsans/ggsans-Medium.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "gg sans";
+    src: url("./ggsans/ggsans-MediumItalic.woff2") format("woff2");
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "gg sans";
+    src: url("./ggsans/ggsans-SemiBold.woff2") format("woff2");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "gg sans";
+    src: url("./ggsans/ggsans-SemiBoldItalic.woff2") format("woff2");
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "gg sans";
+    src: url("./ggsans/ggsans-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "gg sans";
+    src: url("./ggsans/ggsans-BoldItalic.woff2") format("woff2");
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "gg sans";
+    src: url("./ggsans/ggsans-ExtraBold.woff2") format("woff2");
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "gg sans";
+    src: url("./ggsans/ggsans-ExtraBoldItalic.woff2") format("woff2");
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "gg mono";
+    src: url("./ggsans/ggsansmono-Normal.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "gg mono";
+    src: url("./ggsans/ggsansmono-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ABC Ginto Discord */
+
+@font-face {
+    font-family: "ABC Ginto Discord";
+    src: url("./ABCGintoDiscord/ABCGintoDiscord-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "ABC Ginto Discord";
+    src: url("./ABCGintoDiscord/ABCGintoDiscord-RegularItalic.woff2") format("woff2");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "ABC Ginto Discord";
+    src: url("./ABCGintoDiscord/ABCGintoDiscord-Medium.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "ABC Ginto Discord";
+    src: url("./ABCGintoDiscord/ABCGintoDiscord-MediumItalic.woff2") format("woff2");
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "ABC Ginto Nord";
+    src: url("./ABCGintoDiscord/ABCGintoDiscordNord-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "ABC Ginto Nord";
+    src: url("./ABCGintoDiscord/ABCGintoDiscordNord-BoldItalic.woff2") format("woff2");
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "ABC Ginto Nord";
+    src: url("./ABCGintoDiscord/ABCGintoDiscordNord-BlackItalic.woff2") format("woff2");
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+}

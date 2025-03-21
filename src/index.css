@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Corinthia:wght@400;700&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap");
+@import url("@/assets/fonts/fonts.css");
+
+:root {
+    --primary-color: #313338;
+    --secondary-color: #1e1f22;
+    --discord-color: #5865f2;
+    --text-dark-gray: #4e5058;
+    --text-gray: #949ba4;
+    --text-light-gray: #dbdee1;
+    --text-white: #fff;
+    --avatar-size-normal: 3rem;
+
+    --font-primary: "gg sans", "Noto Sans", Arial, sans-serif;
+    --font-display: "gg sans", "Noto Sans", Arial, sans-serif;
+    --font-code: "gg mono", "Source Code Pro", Consolas, "Lucida Console",
+        "Lucida Sans Typewriter", Monaco, "Courier New", Courier, monospace;
+    --font-headline: "ABC Ginto Nord", "Noto Sans", Arial, sans-serif;
+    --font-clan-body: Fraunces, "gg sans", serif, "Noto Sans", Arial, sans-serif;
+    --font-clan-signature: Corinthia, "gg sans", cursive, "Noto Sans", Arial,
+        sans-serif;
+    --font-display-marketing: "ABC Ginto Discord", "gg sans", serif, "Noto Sans",
+        Arial, sans-serif;
+    --font-display-marketing-header: "ABC Ginto Nord Discord", "gg sans", serif,
+        "Noto Sans", Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    background-color: var(--primary-color);
+    font-family: var(--font-primary);
+    color: var(--text-light-gray);
+    font-weight: 500;
+}
+
+button {
+    border: none;
+}
+
+#root {
+    width: 100vw;
+    height: 100vh;
+}

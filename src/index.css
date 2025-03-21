@@ -3,8 +3,11 @@
 
 :root {
     --primary-color: #313338;
-    --secondary-color: #1e1f22;
+    --secondary-color: #2b2d31;
+    --tertiary-color: #1e1f22;
+    --quaternary-color: #232428;
     --discord-color: #5865f2;
+    --hover-color: #35373c;
     --text-dark-gray: #4e5058;
     --text-gray: #949ba4;
     --text-light-gray: #dbdee1;
@@ -35,12 +38,14 @@
 body {
     background-color: var(--primary-color);
     font-family: var(--font-primary);
-    color: var(--text-light-gray);
+    color: var(--text-gray);
     font-weight: 500;
 }
 
 button {
     border: none;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 #root {

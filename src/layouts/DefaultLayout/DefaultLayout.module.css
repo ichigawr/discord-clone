@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+}
+
+.container, .container aside {
+    height: 100%;
+}
+
+.container main {
+    flex: 1;
+}

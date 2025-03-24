@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import DefaultLayout from "./layouts/DefaultLayout";
-import routes from "./routes";
+import AppRoutes from "./components/AppRoutes";
 import "./App.css";
 
 function App() {
@@ -10,17 +9,7 @@ function App() {
       <Router>
         {/* TODO: implement scroll to top */}
         {/* <ScrollToTop /> */}
-        <Routes>
-          <Route element={<DefaultLayout />}>
-            {routes.map((RouteComp) => (
-              <Route
-                key={RouteComp.path}
-                path={RouteComp.path}
-                element={<RouteComp.component />}
-              />
-            ))}
-          </Route>
-        </Routes>
+        <AppRoutes />
       </Router>
     </>
   );

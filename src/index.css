@@ -2,20 +2,26 @@
 @import url("@/assets/fonts/fonts.css");
 
 :root {
+    --avatar-size-normal: 3rem;
+
     --primary-color: #313338;
     --secondary-color: #2b2d31;
     --tertiary-color: #1e1f22;
     --quaternary-color: #232428;
     --discord-color: #5865f2;
     --hover-color: #35373c;
+
+    --header-primary: #f2f3f5;
+    --header-secondary: #b5bac1;
+
     --text-dark-gray: #4e5058;
     --text-gray: #949ba4;
     --text-light-gray: #dbdee1;
     --text-white: #fff;
-    --avatar-size-normal: 3rem;
+    --text-danger: #fa777b;
+    --text-link: #00aafc;
 
     --font-primary: "gg sans", "Noto Sans", Arial, sans-serif;
-    --font-display: "gg sans", "Noto Sans", Arial, sans-serif;
     --font-code: "gg mono", "Source Code Pro", Consolas, "Lucida Console",
         "Lucida Sans Typewriter", Monaco, "Courier New", Courier, monospace;
     --font-headline: "ABC Ginto Nord", "Noto Sans", Arial, sans-serif;
@@ -24,7 +30,7 @@
         sans-serif;
     --font-display-marketing: "ABC Ginto Discord", "gg sans", serif, "Noto Sans",
         Arial, sans-serif;
-    --font-display-marketing-header: "ABC Ginto Nord Discord", "gg sans", serif,
+    --font-display-marketing-header: "ABC Ginto Nord", "gg sans", serif,
         "Noto Sans", Arial, sans-serif;
 }
 
@@ -42,10 +48,28 @@ body {
     font-weight: 500;
 }
 
-button {
+button,
+input {
     border: none;
+}
+
+button {
     background-color: transparent;
+    font-family: inherit;
     cursor: pointer;
+}
+
+button:disabled {
+    filter: brightness(0.7);
+    cursor: not-allowed;
+}
+
+input {
+    outline: none;
+}
+
+img {
+    pointer-events: none;
 }
 
 #root {

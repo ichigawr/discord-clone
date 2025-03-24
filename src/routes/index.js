@@ -2,6 +2,7 @@ import PrivateChannelLayout from "@/layouts/PrivateChannelLayout";
 import AuthPageLayout from "@/layouts/AuthPageLayout";
 import Home from "@/pages/Home";
 import Login from "@/pages/Auth/Login";
+import Register from "@/pages/Auth/Register";
 import config from "@/config";
 
 const routes = [
@@ -17,7 +18,7 @@ const routes = [
   },
   {
     path: config.routes.register,
-    component: Login,
+    component: Register,
     layout: AuthPageLayout,
   },
 ];

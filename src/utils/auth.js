@@ -24,8 +24,8 @@ const auth = async (authType, body, headers) => {
 };
 
 auth.propTypes = {
-  authType: PropTypes.oneOf(["login", "register"]).isRequired,
-  body: PropTypes.object.isRequired,
+  authType: PropTypes.oneOf(["login", "register", "me"]).isRequired,
+  body: PropTypes.object,
 };
 
 export default auth;

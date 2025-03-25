@@ -10,6 +10,7 @@ const routes = [
     path: config.routes.home,
     component: Home,
     layout: PrivateChannelLayout,
+    protected: true,
   },
   {
     path: config.routes.login,

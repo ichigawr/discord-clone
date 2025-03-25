@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import config from "@/config";
-import auth from "../Auth/auth";
+import auth from "../../utils/auth";
 import SideBar from "./SideBar";
 import FriendsList from "./FriendsList";
 import styles from "./Home.module.css";

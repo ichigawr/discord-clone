@@ -34,7 +34,8 @@
     display: flex;
     flex-direction: column;
 
-    label, legend {
+    label,
+    legend {
         margin-bottom: 0.5rem;
         font-size: 0.75rem;
         font-weight: 700;
@@ -48,7 +49,8 @@
         width: 100%;
     }
 
-    input {
+    input,
+    select {
         height: 2.5rem;
         padding: 0.625rem;
         border-radius: 3px;
@@ -57,7 +59,8 @@
     }
 }
 
-.required, .error {
+.required,
+.error {
     color: var(--text-danger);
 }
 
@@ -77,10 +80,35 @@
     }
 }
 
+.marginTop20 {
+    margin-top: 1.25rem;
+}
+
 .marginBottom20 {
     margin-bottom: 1.25rem;
 }
 
 .dateOfBirth {
     border: none;
+}
+
+.inputs {
+    display: flex;
+    gap: 0.625rem;
+
+    select {
+        flex: 1;
+        color: var(--interactive-normal);
+        font-size: 1rem;
+    }
+
+    select:invalid {
+        color: var(--text-gray);
+    }
+}
+
+.terms {
+    margin-top: 8px;
+    color: var(--text-muted);
+    font-size: 0.75rem;
 }

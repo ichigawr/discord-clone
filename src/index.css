@@ -9,6 +9,7 @@
     --tertiary-color: #1e1f22;
     --quaternary-color: #232428;
     --discord-color: #5865f2;
+    --discord-color-hover: #4752c4;
     --hover-color: #35373c;
 
     --header-primary: #f2f3f5;
@@ -20,6 +21,9 @@
     --text-white: #fff;
     --text-danger: #fa777b;
     --text-link: #00aafc;
+    --text-muted: #90969f;
+
+    --interactive-normal: #b5bac1;
 
     --font-primary: "gg sans", "Noto Sans", Arial, sans-serif;
     --font-code: "gg mono", "Source Code Pro", Consolas, "Lucida Console",
@@ -49,19 +53,24 @@ body {
 }
 
 button,
-input {
+input,
+select {
     border: none;
+    outline: none;
 }
 
 button {
     background-color: transparent;
     font-family: inherit;
     cursor: pointer;
-}
 
-button:disabled {
-    filter: brightness(0.7);
-    cursor: not-allowed;
+    &:hover, &:disabled {
+        background-color: var(--button-color-hover);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
 }
 
 input {
@@ -70,6 +79,15 @@ input {
 
 img {
     pointer-events: none;
+}
+
+a {
+    color: var(--text-link);
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 #root {

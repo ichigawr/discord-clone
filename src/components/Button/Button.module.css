@@ -32,7 +32,13 @@
     width: 100%;
 }
 
+.displayBlock {
+    display: block;
+}
+
 .primary {
+    --button-color-hover: var(--discord-color-hover);
+
     display: flex;
     justify-content: center;
     align-items: center;

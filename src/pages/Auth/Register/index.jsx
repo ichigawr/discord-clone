@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import config from "@/config";
-import auth from "../auth";
+import auth from "@/utils/auth";
 import Button from "@/components/Button";
 import DateOfBirth from "./DateOfBirth";
 import InputFields from "./InputFields";
@@ -53,18 +53,22 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formValues.displayName === "") {
+    if (formValues.displayName.trim() === "") {
       formValues.displayName = formValues.username;
     }
 
-    // TODO: replace with actual body data
-    const data = await auth("register", {
+    const body = {
       firstName: formValues.displayName,
       lastName: formValues.displayName,
       email: formValues.email,
       password: formValues.password,
       password_confirmation: formValues.password,
-    });
+    };
+
+    console.log(body);
+
+    // TODO: replace with actual body data
+    const data = await auth("register", body);
 
     if (!data) {
       setHasError(true);
@@ -107,7 +111,11 @@ function Register() {
       </p>
 
       <div className={styles.marginTop20}>
-        <Button variant="link" to={config.routes.login} className="displayBlock">
+        <Button
+          variant="link"
+          to={config.routes.login}
+          className="displayBlock"
+        >
           Already have an account?
         </Button>
       </div>

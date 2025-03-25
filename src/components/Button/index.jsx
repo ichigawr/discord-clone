@@ -35,7 +35,7 @@ function Button({
 }
 
 Button.propTypes = {
-  className: PropTypes.oneOf(["fullWidth", "displayBlock"]),
+  className: PropTypes.oneOf(["", "fullWidth", "displayBlock"]),
   variant: PropTypes.oneOf(["primary", "success", "destructive", "link"]),
   size: PropTypes.oneOf(["tn", "sm", "md", "lg", "xl"]),
   type: PropTypes.oneOf(["button", "submit"]),

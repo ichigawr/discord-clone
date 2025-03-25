@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import Button from "@/components/Button";
 import config from "@/config";
-import auth from "../auth";
+import auth from "@/utils/auth";
+import useQuery from "@/hooks/useQuery";
+import Button from "@/components/Button";
 import styles from "../Auth.module.css";
 
 function Login() {
-  const [params] = useSearchParams();
+  // const [params] = useSearchParams();
+  const query = useQuery();
   const navigate = useNavigate();
 
   const [login, setLogin] = useState("");
@@ -32,7 +34,7 @@ function Login() {
     }
 
     localStorage.setItem("token", data.access_token);
-    navigate(params.get("continue") || config.routes.home);
+    navigate(query.get("continue") || config.routes.home);
   };
 
   return (

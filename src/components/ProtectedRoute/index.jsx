@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
 import config from "@/config";
-import auth from "@/utils/auth";
+import authService from "@/services/authService";
 
-import spinningLogoWebm from "@/assets/videos/spinning-logo.webm";
-import spinningLogoMp4 from "@/assets/videos/spinning-logo.mp4";
 import logo from "@/assets/logos/logo.png";
+import spinningLogoMp4 from "@/assets/videos/spinning-logo.mp4";
+import spinningLogoWebm from "@/assets/videos/spinning-logo.webm";
 
 import styles from "./ProtectedRoute.module.css";
 
@@ -16,31 +16,24 @@ function ProtectedRoute({ children }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
+
     (async () => {
-      setIsLoading(true);
-
-      const data = await auth("me", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-
-      if (data) setCurrentUser(data.user);
-
-      setIsLoading(false);
+      try {
+        const data = await authService.getCurrentUser();
+        setCurrentUser(data.user);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
     })();
   }, []);
 
   if (isLoading) {
     return (
       <div className={styles.container}>
-        <video
-          autoPlay
-          className={styles.spinner}
-          loop
-          playsInline
-        >
+        <video autoPlay className={styles.spinner} loop playsInline>
           <source src={spinningLogoWebm} type="video/webm" />
           <source src={spinningLogoMp4} type="video/mp4" />
           <img src={logo} alt="" />

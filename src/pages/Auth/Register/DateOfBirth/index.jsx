@@ -15,7 +15,7 @@ function DateOfBirth({
       <legend className={hasError ? styles.error : ""}>
         Date of birth {errorMessages}
       </legend>
-      <div className={styles.inputs}>
+      <div className={styles.selects}>
         <select
           name="month"
           id="month"

@@ -2,7 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import config from "@/config";
-import auth from "@/utils/auth";
+import authService from "@/services/authService";
+import httpRequest from "@/utils/httpRequest";
+
 import Button from "@/components/Button";
 import DateOfBirth from "./DateOfBirth";
 import InputFields from "./InputFields";
@@ -19,10 +21,11 @@ function Register() {
     dateOfBirth: "0000-12-00",
   });
 
-  const [hasError, setHasError] = useState(false);
+  const [error, setError] = useState("");
+  const hasError = error !== "";
 
   const errorMessages = hasError ? (
-    <span>- An Unexpected Error Occurred</span>
+    <span>- {error}</span>
   ) : (
     <span className={styles.required}>*</span>
   );
@@ -53,6 +56,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // TODO: implement form validation
     if (formValues.displayName.trim() === "") {
       formValues.displayName = formValues.username;
     }
@@ -65,24 +69,14 @@ function Register() {
       password_confirmation: formValues.password,
     };
 
-    console.log(body);
+    const data = await authService.register(body);
 
-    // TODO: replace with actual body data
-    const data = await auth("register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-
-    if (!data) {
-      setHasError(true);
-      return;
+    if (data.status === "success") {
+      httpRequest.setToken(data.access_token);
+      navigate(config.routes.home);
+    } else {
+      setError(data.message);
     }
-
-    localStorage.setItem("token", data.access_token);
-    navigate(config.routes.home);
   };
 
   return (

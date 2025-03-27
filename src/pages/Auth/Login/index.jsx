@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 import config from "@/config";
-import auth from "@/utils/auth";
+import httpRequest from "@/utils/httpRequest";
+import authService from "@/services/authService";
 
 import Button from "@/components/Button";
 import styles from "../Auth.module.css";
@@ -25,21 +26,15 @@ function Login() {
     e.preventDefault();
 
     const formValues = { email: login, password };
-    const data = await auth("login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formValues),
-    });
 
-    if (!data) {
+    const data = await authService.login(formValues);
+
+    if (data.status === "success") {
+      httpRequest.setToken(data.access_token);
+      navigate(params.get("continue") || config.routes.home);
+    } else {
       setHasError(true);
-      return;
     }
-
-    localStorage.setItem("token", data.access_token);
-    navigate(params.get("continue") || config.routes.home);
   };
 
   return (

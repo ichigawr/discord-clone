@@ -56,6 +56,8 @@
         border-radius: 3px;
         background-color: var(--tertiary-color);
         color: var(--text-light-gray);
+        color: var(--interactive-normal);
+        font-size: 1rem;
     }
 }
 
@@ -92,14 +94,17 @@
     border: none;
 }
 
-.inputs {
+.selects {
     display: flex;
     gap: 0.625rem;
 
     select {
-        flex: 1;
         color: var(--interactive-normal);
         font-size: 1rem;
+    }
+
+    select {
+        flex: 1;
     }
 
     select:invalid {

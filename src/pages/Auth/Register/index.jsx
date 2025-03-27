@@ -21,6 +21,7 @@ function Register() {
     dateOfBirth: "0000-12-00",
   });
 
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const hasError = error !== "";
 
@@ -69,6 +70,8 @@ function Register() {
       password_confirmation: formValues.password,
     };
 
+    setIsLoading(true);
+
     const data = await authService.register(body);
 
     if (data.status === "success") {
@@ -77,6 +80,8 @@ function Register() {
     } else {
       setError(data.message);
     }
+
+    setIsLoading(false);
   };
 
   return (
@@ -100,17 +105,19 @@ function Register() {
       />
 
       {/* TODO: implement loading state */}
-      <Button size="lg" className="fullWidth" type="submit">
-        Continue
-      </Button>
+      <div className={styles.fullWidth}>
+        <Button size="lg" type="submit" isLoading={isLoading}>
+          Continue
+        </Button>
+      </div>
 
       <p className={styles.terms}>
         By registering, you agree to Discord's{" "}
-        <a href="https://discord.com/terms">Terms of Service</a> and{" "}
-        <a href="https://discord.com/privacy">Privacy Policy</a>
+        <Button href="https://discord.com/terms">Terms of Service</Button> and{" "}
+        <Button href="https://discord.com/privacy">Privacy Policy</Button>
       </p>
 
-      <div className={styles.marginTop20}>
+      <div className={`${styles.alreadyHaveAccount} ${styles.marginTop20}`}>
         <Button
           variant="link"
           to={config.routes.login}

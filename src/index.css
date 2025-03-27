@@ -73,6 +73,10 @@ button {
     }
 }
 
+div > button {
+    display: block;
+}
+
 input {
     outline: none;
 }

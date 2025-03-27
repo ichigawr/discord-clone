@@ -14,6 +14,7 @@ function Login() {
 
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
   const errorMessages = hasError ? (
@@ -25,8 +26,9 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formValues = { email: login, password };
+    setIsLoading(true);
 
+    const formValues = { email: login, password };
     const data = await authService.login(formValues);
 
     if (data.status === "success") {
@@ -35,6 +37,8 @@ function Login() {
     } else {
       setHasError(true);
     }
+
+    setIsLoading(false);
   };
 
   return (
@@ -82,9 +86,11 @@ function Login() {
       </div>
 
       {/* TODO: implement loading state */}
-      <Button size="lg" className="fullWidth" type="submit">
-        Log In
-      </Button>
+      <div className={styles.fullWidth}>
+        <Button size="lg" type="submit" isLoading={isLoading}>
+          Log In
+        </Button>
+      </div>
 
       <div className={styles.needAccount}>
         <span>Need an account? </span>

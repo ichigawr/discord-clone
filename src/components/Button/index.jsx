@@ -1,5 +1,5 @@
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
 
 import validateProps from "@/utils/validateProps";
 import styles from "./Button.module.css";
@@ -8,35 +8,58 @@ function Button({
   children,
   variant = "primary",
   size = "md",
-  className = "",
   type = "button",
-  to = null,
+  to = "",
+  href = "",
   disabled = false,
+  isLoading = false,
+  onClick,
 }) {
-  validateProps(Button, { variant, size, className, type, to, disabled });
-  const navigate = useNavigate();
+  validateProps(Button, { variant, size, type, to, disabled });
+  let Component = "button";
+  const props = {};
 
-  const classes = className
-    .split(" ")
-    .map((c) => styles[c])
-    .join(" ");
-  const handleClick = () => to && navigate(to);
+  if (to || href) variant = "link";
+
+  if (to) {
+    Component = Link;
+    props.to = to;
+  } else if (href) {
+    Component = "a";
+    props.href = href;
+    props.target = "_blank";
+    props.rel = "noreferrer noopener";
+  } else {
+    props.type = type;
+  }
+
+  const handleClick = () => {
+    if (disabled || isLoading) return;
+    onClick && onClick();
+  };
 
   return (
-    <button
-      className={`${styles.button} ${styles[variant]} ${styles[size]} ${classes}`}
-      type={type}
+    <Component
+      className={`${styles.button} ${styles[variant]} ${styles[size]}`}
       onClick={handleClick}
-      disabled={disabled}
+      {...props}
     >
-      {children}
-    </button>
+      {isLoading ? (
+        <span className={styles.spinner}>
+          <span className={styles.spinnerItem}></span>
+          <span className={styles.spinnerItem}></span>
+          <span className={styles.spinnerItem}></span>
+        </span>
+      ) : (
+        children
+      )}
+    </Component>
   );
 }
 
 Button.propTypes = {
   className: PropTypes.oneOf(["", "fullWidth", "displayBlock"]),
-  variant: PropTypes.oneOf(["primary", "success", "destructive", "link"]),
+  variant: PropTypes.oneOf(["primary", "success", "destructive"]),
   size: PropTypes.oneOf(["tn", "sm", "md", "lg", "xl"]),
   type: PropTypes.oneOf(["button", "submit"]),
   to: PropTypes.string,

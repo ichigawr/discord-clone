@@ -66,9 +66,14 @@
     color: var(--text-danger);
 }
 
+.forgotPassword,
+.needAccount,
+.alreadyHaveAccount {
+    font-size: 0.875rem;
+}
+
 .forgotPassword {
     margin-top: 0.25rem;
-    line-height: 0;
 }
 
 .needAccount {
@@ -76,7 +81,6 @@
 
     > span {
         color: var(--text-gray);
-        font-size: 0.875rem;
         font-weight: 300;
         line-height: 1rem;
     }
@@ -110,6 +114,11 @@
     select:invalid {
         color: var(--text-gray);
     }
+}
+
+.fullWidth,
+.fullWidth > * {
+    width: 100%;
 }
 
 .terms {

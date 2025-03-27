@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
 import config from "@/config";
-import auth from "../../utils/auth";
+import authService from "@/services/authService";
+
 import SideBar from "./SideBar";
 import FriendsList from "./FriendsList";
 import styles from "./Home.module.css";
@@ -9,14 +10,14 @@ import styles from "./Home.module.css";
 function Home() {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    const data = auth("logout", null, {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    });
+  const handleLogout = async () => {
+    const res = await authService.logout();
 
-    if (data) {
+    if (res.status === "success") {
       localStorage.removeItem("token");
       navigate(config.routes.login);
+    } else {
+      console.error(res.message);
     }
   };
 

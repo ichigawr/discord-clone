@@ -5,7 +5,7 @@ import styles from "./SideBar.module.css";
 import UserProfile from "./UserProfile";
 
 function SideBar() {
-  const users = useFetch("https://dummyjson.com/users?limit=5&skip=150");
+  const users = useFetch("/products");
 
   return (
     <div className={styles.sideBar}>
@@ -45,17 +45,19 @@ function SideBar() {
         </div>
         <div className={styles.directMessagesList}>
           <div className={styles.directMessage}>
-            {users.map((user) => (
-              <UserCard
-                key={user.id}
-                name={user.firstName}
-                avatar={user.image}
-              />
-            ))}
+            {users.map((user) => {
+              // TODO: replace with actual user data
+              const id = user.id;
+              const name = user.title.split(" ")[0];
+              const avatar = user.thumbnail;
+
+              return <UserCard key={id} name={name} avatar={avatar} />;
+            })}
           </div>
         </div>
       </div>
 
+      {/* TODO: fetch current user */}
       <div className={styles.userProfile}>
         <UserProfile
           userId="0001"

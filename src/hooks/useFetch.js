@@ -1,28 +1,18 @@
-import { useState, useEffect } from "react";
-
-const fetchData = async (url) => {
-  try {
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
+import { useEffect, useState } from "react";
+import httpRequest from "@/utils/httpRequest";
 
 const useFetch = (url) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     (async () => {
-      const data = await fetchData(url);
-      setData(data.users); // TODO: replace this with the actual data key
+      try {
+        const res = await httpRequest.get(url);
+        setData(res.data); // TODO: replace this with the actual data key
+      } catch (error) {
+        console.error(error);
+        setData([]);
+      }
     })();
   }, [url]);
 

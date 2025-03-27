@@ -5,8 +5,8 @@ import useFetch from "@/hooks/useFetch";
 import styles from "./ServerList.module.css";
 
 function ServerList() {
-  // TODO: replace NavLink URL with actual URL
-  const servers = useFetch("https://dummyjson.com/users?limit=5&skip=100");
+  // TODO: replace with actual URL
+  const servers = useFetch("/products?page=5");
 
   return (
     <nav className={styles.serverList}>
@@ -27,11 +27,17 @@ function ServerList() {
 
       <div className={styles.separator}></div>
 
-      {servers.map((server) => (
-        <NavLink to={`/`} key={server.id} className={styles.btn}>
-          <Avatar key={server.id} name="Server" thumbnail={server.image} />
-        </NavLink>
-      ))}
+      {servers.map((server) => {
+        const id = server.id;
+        const name = server.title;
+        const thumbnail = server.thumbnail;
+
+        return (
+          <NavLink to={`/`} key={id} className={styles.btn}>
+            <Avatar key={id} name={name} thumbnail={thumbnail} />
+          </NavLink>
+        );
+      })}
 
       <NavLink to="/" className={styles.btn}>
         <svg
@@ -57,9 +63,7 @@ function ServerList() {
           viewBox="0 0 20 20"
           fill="none"
         >
-          <path
-            d="M10 8.9C9.39 8.9 8.9 9.39 8.9 10C8.9 10.61 9.39 11.1 10 11.1C10.61 11.1 11.1 10.61 11.1 10C11.1 9.39 10.61 8.9 10 8.9ZM10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM12.19 12.19L4 16L7.81 7.81L16 4L12.19 12.19Z"
-          />
+          <path d="M10 8.9C9.39 8.9 8.9 9.39 8.9 10C8.9 10.61 9.39 11.1 10 11.1C10.61 11.1 11.1 10.61 11.1 10C11.1 9.39 10.61 8.9 10 8.9ZM10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM12.19 12.19L4 16L7.81 7.81L16 4L12.19 12.19Z" />
         </svg>
       </NavLink>
     </nav>

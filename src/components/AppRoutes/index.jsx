@@ -14,15 +14,15 @@ function AppRoutes() {
         const RouteWrapper = route.protected ? ProtectedRoute : Fragment;
 
         return (
-          <Route key={route.path} element={<Layout />}>
-            <Route
-              path={route.path}
-              element={
-                <RouteWrapper>
-                  <Component />
-                </RouteWrapper>
-              }
-            />
+          <Route
+            key={route.path}
+            element={
+              <RouteWrapper>
+                <Layout />
+              </RouteWrapper>
+            }
+          >
+            <Route path={route.path} element={<Component />} />
           </Route>
         );
       })}

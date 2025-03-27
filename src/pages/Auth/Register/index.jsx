@@ -68,7 +68,13 @@ function Register() {
     console.log(body);
 
     // TODO: replace with actual body data
-    const data = await auth("register", body);
+    const data = await auth("register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
 
     if (!data) {
       setHasError(true);

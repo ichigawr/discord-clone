@@ -28,14 +28,6 @@
     height: 24px;
 }
 
-.fullWidth {
-    width: 100%;
-}
-
-.displayBlock {
-    display: block;
-}
-
 .primary {
     --button-color-hover: var(--discord-color-hover);
 

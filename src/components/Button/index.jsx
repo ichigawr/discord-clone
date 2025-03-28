@@ -4,33 +4,36 @@ import PropTypes from "prop-types";
 import validateProps from "@/utils/validateProps";
 import styles from "./Button.module.css";
 
-function Button({
-  children,
-  variant = "primary",
-  size = "md",
-  type = "button",
-  to = "",
-  href = "",
-  disabled = false,
-  isLoading = false,
-  onClick,
-}) {
-  validateProps(Button, { variant, size, type, to, disabled });
+function Button(props) {
+  let {
+    children,
+    variant = "primary",
+    size = "md",
+    type = "button",
+    to = "",
+    href = "",
+    disabled = false,
+    isLoading = false,
+    onClick,
+  } = props;
+
+  validateProps(Button, props);
+
   let Component = "button";
-  const props = {};
+  const passedProps = {};
 
   if (to || href) variant = "link";
 
   if (to) {
     Component = Link;
-    props.to = to;
+    passedProps.to = to;
   } else if (href) {
     Component = "a";
-    props.href = href;
-    props.target = "_blank";
-    props.rel = "noreferrer noopener";
+    passedProps.href = href;
+    passedProps.target = "_blank";
+    passedProps.rel = "noreferrer noopener";
   } else {
-    props.type = type;
+    passedProps.type = type;
   }
 
   const handleClick = () => {
@@ -42,7 +45,7 @@ function Button({
     <Component
       className={`${styles.button} ${styles[variant]} ${styles[size]}`}
       onClick={handleClick}
-      {...props}
+      {...passedProps}
     >
       {isLoading ? (
         <span className={styles.spinner}>
@@ -58,12 +61,14 @@ function Button({
 }
 
 Button.propTypes = {
-  className: PropTypes.oneOf(["", "fullWidth", "displayBlock"]),
   variant: PropTypes.oneOf(["primary", "success", "destructive"]),
   size: PropTypes.oneOf(["tn", "sm", "md", "lg", "xl"]),
   type: PropTypes.oneOf(["button", "submit"]),
   to: PropTypes.string,
+  href: PropTypes.string,
   disabled: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 export default Button;

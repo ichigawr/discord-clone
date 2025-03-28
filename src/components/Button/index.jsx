@@ -15,6 +15,7 @@ function Button(props) {
     disabled = false,
     isLoading = false,
     onClick,
+    ...restProps
   } = props;
 
   validateProps(Button, props);
@@ -44,6 +45,7 @@ function Button(props) {
       className={`${styles.button} ${styles[variant]} ${styles[size]}`}
       onClick={handleClick}
       {...passedProps}
+      {...restProps}
     >
       {isLoading ? (
         <span className={styles.spinner}>

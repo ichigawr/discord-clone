@@ -113,8 +113,8 @@ function Register() {
 
       <p className={styles.terms}>
         By registering, you agree to Discord's{" "}
-        <Button href="https://discord.com/terms">Terms of Service</Button> and{" "}
-        <Button href="https://discord.com/privacy">Privacy Policy</Button>
+        <Button variant="link" href="https://discord.com/terms">Terms of Service</Button> and{" "}
+        <Button variant="link" href="https://discord.com/privacy">Privacy Policy</Button>
       </p>
 
       <div className={`${styles.alreadyHaveAccount} ${styles.marginTop20}`}>

@@ -5,7 +5,7 @@ import validateProps from "@/utils/validateProps";
 import styles from "./Button.module.css";
 
 function Button(props) {
-  let {
+  const {
     children,
     variant = "primary",
     size = "md",
@@ -21,8 +21,6 @@ function Button(props) {
 
   let Component = "button";
   const passedProps = {};
-
-  if (to || href) variant = "link";
 
   if (to) {
     Component = Link;
@@ -61,7 +59,7 @@ function Button(props) {
 }
 
 Button.propTypes = {
-  variant: PropTypes.oneOf(["primary", "success", "destructive"]),
+  variant: PropTypes.oneOf(["primary", "success", "destructive", "link"]),
   size: PropTypes.oneOf(["tn", "sm", "md", "lg", "xl"]),
   type: PropTypes.oneOf(["button", "submit"]),
   to: PropTypes.string,

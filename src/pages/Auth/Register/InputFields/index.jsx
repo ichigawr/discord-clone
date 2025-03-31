@@ -1,68 +1,40 @@
+import ErrorMessage from "../../ErrorMessage";
 import styles from "@/pages/Auth/Auth.module.css";
 
-function InputFields({
-  hasError,
-  errorMessages,
-  formValues,
-  handleInputChange,
-}) {
+function InputFields({ formControl }) {
+  const {
+    register,
+    formState: {
+      errors: { email, password, username },
+    },
+  } = formControl;
+
   return (
     <>
       <div className={`${styles.fieldWrapper} ${styles.marginBottom20}`}>
-        <label htmlFor="email" className={hasError ? styles.error : ""}>
-          Email {errorMessages}
+        <label htmlFor="email" className={email ? styles.error : ""}>
+          Email <ErrorMessage errorMessage={email?.message} />
         </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          autoComplete="on"
-          value={formValues.email}
-          onChange={handleInputChange}
-        />
+        <input type="email" {...register("email")} autoComplete="on" />
       </div>
 
       <div className={`${styles.fieldWrapper} ${styles.marginBottom20}`}>
         <label htmlFor="displayName">Display name</label>
-        <input
-          type="text"
-          id="displayName"
-          name="displayName"
-          autoComplete="on"
-          value={formValues.displayName}
-          onChange={handleInputChange}
-        />
+        <input type="text" {...register("displayName")} autoComplete="on" />
       </div>
 
       <div className={`${styles.fieldWrapper} ${styles.marginBottom20}`}>
-        <label htmlFor="password" className={hasError ? styles.error : ""}>
-          Password {errorMessages}
+        <label htmlFor="password" className={password ? styles.error : ""}>
+          Password <ErrorMessage errorMessage={password?.message} />
         </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          required
-          autoComplete="on"
-          value={formValues.password}
-          onChange={handleInputChange}
-        />
+        <input type="password" {...register("password")} autoComplete="on" />
       </div>
 
       <div className={`${styles.fieldWrapper} ${styles.marginBottom20}`}>
-        <label htmlFor="username" className={hasError ? styles.error : ""}>
-          Username {errorMessages}
+        <label htmlFor="username" className={username ? styles.error : ""}>
+          Username <ErrorMessage errorMessage={username?.message} />
         </label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          required
-          autoComplete="on"
-          value={formValues.username}
-          onChange={handleInputChange}
-        />
+        <input type="text" {...register("username")} autoComplete="on" />
       </div>
     </>
   );

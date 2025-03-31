@@ -1,74 +1,64 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import config from "@/config";
 import authService from "@/services/authService";
 import httpRequest from "@/utils/httpRequest";
+import registerSchema from "@/schema/registerSchema";
 
 import Button from "@/components/Button";
 import DateOfBirth from "./DateOfBirth";
 import InputFields from "./InputFields";
 import styles from "../Auth.module.css";
 
+let timerId = null;
+
 function Register() {
   const navigate = useNavigate();
 
-  const [formValues, setFormValues] = useState({
-    email: "",
-    password: "",
-    username: "",
-    displayName: "",
-    dateOfBirth: "0000-12-00",
+  const [isLoading, setIsLoading] = useState(false);
+  const formControl = useForm({
+    mode: "onChange",
+    resolver: yupResolver(registerSchema),
   });
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const hasError = error !== "";
+  const {
+    handleSubmit,
+    formState: { errors },
+    watch,
+    setError,
+    setValue,
+  } = formControl;
 
-  const errorMessages = hasError ? (
-    <span>- {error}</span>
-  ) : (
-    <span className={styles.required}>*</span>
-  );
+  const email = watch("email");
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
-  };
+  useEffect(() => {
+    if (!email) return;
 
-  const handleDateOfBirthChange = (e) => {
-    const { name, value } = e.target;
-    const dateOfBirth = formValues.dateOfBirth.split("-");
+    clearTimeout(timerId);
+    timerId = setTimeout(async () => {
+      if (errors.email) return;
 
-    const dateObj = {
-      year: dateOfBirth[0] || "",
-      month: dateOfBirth[1] || "",
-      day: dateOfBirth[2] || "",
-      [name]:
-        name === "month" || name === "day" ? value.padStart(2, "0") : value,
-    };
+      const alreadyExist = await authService.checkEmail(email);
 
-    setFormValues({
-      ...formValues,
-      dateOfBirth: `${dateObj.year}-${dateObj.month}-${dateObj.day}`,
-    });
-  };
+      if (alreadyExist) {
+        setError("email", { message: "Email already exists" });
+      }
+    }, 500);
+  }, [email, errors, setError]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // TODO: implement form validation
-    if (formValues.displayName.trim() === "") {
-      formValues.displayName = formValues.username;
-    }
-
+  const onSubmit = async (userInfo) => {
     const body = {
-      firstName: formValues.displayName,
-      lastName: formValues.displayName,
-      email: formValues.email,
-      password: formValues.password,
-      password_confirmation: formValues.password,
+      firstName: userInfo.username,
+      lastName: userInfo.username,
+      email: userInfo.email,
+      password: userInfo.password,
+      password_confirmation: userInfo.password,
     };
+
+    console.log(body)
 
     setIsLoading(true);
 
@@ -77,34 +67,26 @@ function Register() {
     if (data.status === "success") {
       httpRequest.setToken(data.access_token);
       navigate(config.routes.home);
-    } else {
-      setError(data.message);
     }
 
     setIsLoading(false);
   };
 
+  console.log(errors);
+
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.header}>
         <h1>Create an account</h1>
       </div>
 
-      <InputFields
-        hasError={hasError}
-        errorMessages={errorMessages}
-        formValues={formValues}
-        handleInputChange={handleInputChange}
-      />
+      <InputFields formControl={formControl} />
 
       <DateOfBirth
-        hasError={hasError}
-        errorMessages={errorMessages}
-        dateOfBirth={formValues.dateOfBirth}
-        handleDateOfBirthChange={handleDateOfBirthChange}
+        errorMessage={errors.dateOfBirth?.message}
+        setValue={setValue}
       />
 
-      {/* TODO: implement loading state */}
       <div className={styles.fullWidth}>
         <Button size="lg" type="submit" isLoading={isLoading}>
           Continue
@@ -113,8 +95,13 @@ function Register() {
 
       <p className={styles.terms}>
         By registering, you agree to Discord's{" "}
-        <Button variant="link" href="https://discord.com/terms">Terms of Service</Button> and{" "}
-        <Button variant="link" href="https://discord.com/privacy">Privacy Policy</Button>
+        <Button variant="link" href="https://discord.com/terms">
+          Terms of Service
+        </Button>{" "}
+        and{" "}
+        <Button variant="link" href="https://discord.com/privacy">
+          Privacy Policy
+        </Button>
       </p>
 
       <div className={`${styles.alreadyHaveAccount} ${styles.marginTop20}`}>

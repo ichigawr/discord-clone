@@ -20,7 +20,7 @@ function ProtectedRoute({ children }) {
 
     (async () => {
       try {
-        const data = await authService.getCurrentUser();
+        const data = await authService.me();
         setCurrentUser(data.user);
       } catch (error) {
         console.error(error);

@@ -1,7 +1,6 @@
 import httpRequest from "@/utils/httpRequest";
 
-export const getCurrentUser = async () => {
-  // TODO: replace url with actual endpoint
+export const me = async () => {
   const res = await httpRequest.get("/auth/me");
   return res;
 };
@@ -21,9 +20,15 @@ export const register = async (registerInfo) => {
   return res;
 }
 
+export const checkEmail = async (email) => {
+  const res = await httpRequest.get(`auth/check-email?email=${email}`);
+  return res.exists;
+};
+
 export default {
-  getCurrentUser,
+  me,
   login,
   logout,
   register,
+  checkEmail,
 };

@@ -7,6 +7,7 @@ import authService from "@/services/authService";
 
 import Button from "@/components/Button";
 import styles from "../Auth.module.css";
+import ErrorMessage from "../ErrorMessage";
 
 function Login() {
   const [params] = useSearchParams();
@@ -17,11 +18,8 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-  const errorMessages = hasError ? (
-    <span>- Login or password is invalid.</span>
-  ) : (
-    <span className={styles.required}>*</span>
-  );
+  const errorMessages = hasError ? "Login or password is invalid." : "";
+  const ErrorComponent = <ErrorMessage errorMessage={errorMessages} />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,7 +48,7 @@ function Login() {
 
       <div className={`${styles.fieldWrapper} ${styles.marginBottom20}`}>
         <label htmlFor="email" className={hasError ? styles.error : ""}>
-          Email or phone number {errorMessages}
+          Email or phone number {ErrorComponent}
         </label>
         <input
           type="text"
@@ -65,7 +63,7 @@ function Login() {
 
       <div className={styles.fieldWrapper}>
         <label htmlFor="password" className={hasError ? styles.error : ""}>
-          Password {errorMessages}
+          Password {ErrorComponent}
         </label>
         <input
           type="password"

@@ -53,12 +53,11 @@ function Register() {
     const body = {
       firstName: userInfo.username,
       lastName: userInfo.username,
+      username: userInfo.username,
       email: userInfo.email,
       password: userInfo.password,
       password_confirmation: userInfo.password,
     };
-
-    console.log(body)
 
     setIsLoading(true);
 

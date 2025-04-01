@@ -1,25 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import httpRequest from "@/utils/httpRequest";
 
 import Button from "@/components/Button";
 import EditingForm from "./EditingForm";
 import styles from "./Profile.module.css";
+import { useParams } from "react-router-dom";
+import userService from "@/services/userService";
 
 function Profile() {
+  const params = useParams();
+  const [isLoading, setIsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isCurrentUser, setIsCurrentUser] = useState(true);
+  const [user, setUser] = useState(
+    (() => {
+      try {
+        return JSON.parse(localStorage.getItem("user"));
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
+    })()
+  );
 
-  const user = (() => {
-    try {
-      const currentUser = JSON.parse(localStorage.getItem("user"));
-      return currentUser;
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  })();
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (params.username !== user?.username) {
+        setIsLoading(true);
+
+        const data = await userService.getUserByUsername(params.username);
+        setUser(data);
+        setIsCurrentUser(false);
+
+        setIsLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, [params, user]);
 
   const onSubmit = async (data) => {
+    setIsLoading(true);
+
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       await httpRequest.patch(`/users/${user.id}`, data);
@@ -29,6 +52,8 @@ function Profile() {
       console.error(error);
       toast.error("An unexpected error occurred!");
     }
+
+    setIsLoading(false);
   };
 
   return (
@@ -89,11 +114,13 @@ function Profile() {
               : "Unknown date"}
           </p>
 
-          <div className={styles.actionButtons}>
-            <Button size="lg" onClick={() => setIsEditing(!isEditing)}>
-              {isEditing ? "Cancel Editing" : "Edit Profile"}
-            </Button>
-          </div>
+          {!isLoading && isCurrentUser && (
+            <div className={styles.actionButtons}>
+              <Button size="lg" onClick={() => setIsEditing(!isEditing)}>
+                {isEditing ? "Cancel Editing" : "Edit Profile"}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -104,6 +131,7 @@ function Profile() {
             user={user}
             onSubmit={onSubmit}
             handleCancel={() => setIsEditing(false)}
+            isLoading={isLoading}
           />
         </>
       )}

@@ -10,7 +10,7 @@ let emailTimerId = null;
 let phoneTimerId = null;
 let usernameTimerId = null;
 
-function EditingForm({ user, onSubmit, handleCancel }) {
+function EditingForm({ user, onSubmit, handleCancel, isLoading }) {
   const {
     register,
     handleSubmit,
@@ -175,7 +175,7 @@ function EditingForm({ user, onSubmit, handleCancel }) {
       </div>
 
       <div className={styles.formActions}>
-        <Button type="submit" size="lg">
+        <Button type="submit" size="lg" isLoading={isLoading}>
           Save Changes
         </Button>
         <Button variant="destructive" size="lg" onClick={onCancel}>

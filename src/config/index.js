@@ -3,6 +3,7 @@ const config = {
     home: "/",
     login: "/login",
     register: "/register",
+    profile: "/p/:username",
     notFound: "*",
   },
 };

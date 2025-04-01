@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useSearchParams } from "react-router-dom";
 
 import config from "@/config";
 import authService from "@/services/authService";
@@ -12,23 +12,28 @@ import styles from "./ProtectedRoute.module.css";
 
 function ProtectedRoute({ children }) {
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
+    const fetchUserData = async () => {
+      setIsLoading(true);
 
-    (async () => {
-      try {
-        const data = await authService.me();
+      const data = await authService.me();
+
+      if (data.status === "success") {
         setCurrentUser(data.user);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsLoading(false);
+        localStorage.setItem("user", JSON.stringify(data.user));
+      } else {
+        console.error(data.message);
       }
-    })();
-  }, []);
+
+      setIsLoading(false);
+    };
+
+    fetchUserData();
+  }, [searchParams, setSearchParams]);
 
   if (isLoading) {
     return (

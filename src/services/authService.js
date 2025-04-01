@@ -20,8 +20,24 @@ export const register = async (registerInfo) => {
   return res;
 }
 
-export const checkEmail = async (email) => {
-  const res = await httpRequest.get(`auth/check-email?email=${email}`);
+export const checkEmail = async (email, excludeId) => {
+  const res = await httpRequest.get(
+    `auth/check-email?email=${email}&exclude_id=${excludeId}`
+  );
+  return res.exists;
+};
+
+export const checkPhone = async (phone, excludeId) => {
+  const res = await httpRequest.get(
+    `auth/check-phone?phone=${phone}&exclude_id=${excludeId}`
+  );
+  return res.exists;
+};
+
+export const checkUsername = async (username, excludeId) => {
+  const res = await httpRequest.get(
+    `auth/check-username?username=${username}&exclude_id=${excludeId}`
+  );
   return res.exists;
 };
 
@@ -31,4 +47,6 @@ export default {
   logout,
   register,
   checkEmail,
+  checkPhone,
+  checkUsername,
 };

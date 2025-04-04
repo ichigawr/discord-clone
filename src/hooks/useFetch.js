@@ -8,7 +8,7 @@ const useFetch = (url) => {
     (async () => {
       try {
         const res = await httpRequest.get(url);
-        setData(res.data); // TODO: replace this with the actual data key
+        setData(res.data.items); // TODO: replace this with the actual data key
       } catch (error) {
         console.error(error);
         setData([]);

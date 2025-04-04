@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import { Fragment } from "react";
+import { AuthProvider } from "@/contexts/AuthContext";
 
-import ProtectedRoute from "../ProtectedRoute";
 import NoLayout from "@/layouts/NoLayout";
 import routes from "@/routes";
+import ProtectedRoute from "../ProtectedRoute";
 
 function AppRoutes() {
   return (
@@ -11,15 +11,18 @@ function AppRoutes() {
       {routes.map((route) => {
         const Layout = route.layout || NoLayout;
         const Component = route.component;
-        const RouteWrapper = route.protected ? ProtectedRoute : Fragment;
 
         return (
           <Route
             key={route.path}
             element={
-              <RouteWrapper>
+              route.protected ? (
+                <ProtectedRoute>
+                  <Layout />
+                </ProtectedRoute>
+              ) : (
                 <Layout />
-              </RouteWrapper>
+              )
             }
           >
             <Route path={route.path} element={<Component />} />

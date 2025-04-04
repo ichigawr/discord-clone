@@ -13,7 +13,7 @@
 }
 
 .logoWithText {
-    position: relative;
+    position: fixed;
     top: 48px;
     left: 48px;
 }

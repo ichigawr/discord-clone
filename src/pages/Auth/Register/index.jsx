@@ -1,23 +1,25 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
+import useCheckInfo from "@/hooks/useCheckInfo";
 
 import config from "@/config";
+import registerSchema from "@/schema/registerSchema";
 import authService from "@/services/authService";
 import httpRequest from "@/utils/httpRequest";
-import registerSchema from "@/schema/registerSchema";
 
 import Button from "@/components/Button";
+import styles from "../Auth.module.css";
 import DateOfBirth from "./DateOfBirth";
 import InputFields from "./InputFields";
-import styles from "../Auth.module.css";
-
-let timerId = null;
+import useCurrentUser from "@/hooks/useCurrentUser";
 
 function Register() {
   const navigate = useNavigate();
 
+  const { fetchCurrentUser } = useCurrentUser();
   const [isLoading, setIsLoading] = useState(false);
   const formControl = useForm({
     mode: "onChange",
@@ -27,27 +29,10 @@ function Register() {
   const {
     handleSubmit,
     formState: { errors },
-    watch,
-    setError,
     setValue,
   } = formControl;
 
-  const email = watch("email");
-
-  useEffect(() => {
-    if (!email) return;
-
-    clearTimeout(timerId);
-    timerId = setTimeout(async () => {
-      if (errors.email) return;
-
-      const alreadyExist = await authService.checkEmail(email);
-
-      if (alreadyExist) {
-        setError("email", { message: "Email already exists" });
-      }
-    }, 500);
-  }, [email, errors, setError]);
+  useCheckInfo("email", formControl);
 
   const onSubmit = async (userInfo) => {
     const body = {
@@ -61,17 +46,16 @@ function Register() {
 
     setIsLoading(true);
 
-    const data = await authService.register(body);
+    const res = await authService.register(body);
 
-    if (data.status === "success") {
-      httpRequest.setToken(data.access_token);
+    if (res.status === "success") {
+      httpRequest.setToken(res.data.access_token);
+      fetchCurrentUser();
       navigate(config.routes.home);
     }
 
     setIsLoading(false);
   };
-
-  console.log(errors);
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>

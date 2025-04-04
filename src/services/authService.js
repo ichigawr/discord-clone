@@ -8,35 +8,21 @@ export const me = async () => {
 export const login = async (loginInfo) => {
   const res = await httpRequest.post("/auth/login", loginInfo);
   return res;
-}
+};
 
 export const logout = async () => {
   const res = await httpRequest.post("/auth/logout");
   return res;
-}
+};
 
 export const register = async (registerInfo) => {
   const res = await httpRequest.post("/auth/register", registerInfo);
   return res;
-}
-
-export const checkEmail = async (email, excludeId) => {
-  const res = await httpRequest.get(
-    `auth/check-email?email=${email}&exclude_id=${excludeId}`
-  );
-  return res.exists;
 };
 
-export const checkPhone = async (phone, excludeId) => {
+export const checkInfo = async (type, value, excludeId = "") => {
   const res = await httpRequest.get(
-    `auth/check-phone?phone=${phone}&exclude_id=${excludeId}`
-  );
-  return res.exists;
-};
-
-export const checkUsername = async (username, excludeId) => {
-  const res = await httpRequest.get(
-    `auth/check-username?username=${username}&exclude_id=${excludeId}`
+    `auth/check-${type}?${type}=${value}&exclude_id=${excludeId}`
   );
   return res.exists;
 };
@@ -46,7 +32,5 @@ export default {
   login,
   logout,
   register,
-  checkEmail,
-  checkPhone,
-  checkUsername,
+  checkInfo,
 };

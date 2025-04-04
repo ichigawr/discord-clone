@@ -1,21 +1,23 @@
-import { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import config from "@/config";
-import httpRequest from "@/utils/httpRequest";
-import authService from "@/services/authService";
 import loginSchema from "@/schema/loginSchema";
+import authService from "@/services/authService";
+import httpRequest from "@/utils/httpRequest";
 
 import Button from "@/components/Button";
-import ErrorMessage from "../ErrorMessage";
 import styles from "../Auth.module.css";
+import ErrorMessage from "../ErrorMessage";
+import useCurrentUser from "@/hooks/useCurrentUser";
 
 function Login() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
 
+  const { fetchCurrentUser } = useCurrentUser();
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -25,15 +27,20 @@ function Login() {
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(loginSchema),
+    defaultValues: {
+      email: "vinh@gmail.com",
+      password: "12345678",
+    },
   });
 
   const onSubmit = async (loginInfo) => {
     setIsLoading(true);
 
-    const data = await authService.login(loginInfo);
+    const res = await authService.login(loginInfo);
 
-    if (data.status === "success") {
-      httpRequest.setToken(data.access_token);
+    if (res.status === "success") {
+      httpRequest.setToken(res.data.access_token);
+      await fetchCurrentUser();
       navigate(params.get("continue") || config.routes.home);
     } else {
       const message = "Login or password is invalid.";

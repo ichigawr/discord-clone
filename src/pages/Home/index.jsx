@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
-import config from "@/config";
+import useCurrentUser from "@/hooks/useCurrentUser";
+
 import authService from "@/services/authService";
+import config from "@/config";
 
 import Button from "@/components/Button";
 import SideBar from "./SideBar";
@@ -10,15 +12,7 @@ import styles from "./Home.module.css";
 
 function Home() {
   const navigate = useNavigate();
-
-  const getUsername = () => {
-    try {
-      const currentUser = JSON.parse(localStorage.getItem("user"));
-      return currentUser.username;
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { currentUser } = useCurrentUser();
 
   const handleLogout = async () => {
     const res = await authService.logout();
@@ -43,7 +37,7 @@ function Home() {
         <button className={styles.logoutBtn} onClick={handleLogout}>
           Log Out
         </button>
-        <Button to={`/p/${getUsername()}`}>Profile</Button>
+        <Button to={`/p/${currentUser.username}`}>Profile</Button>
       </aside>
     </div>
   );

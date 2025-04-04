@@ -10,19 +10,25 @@ import httpRequest from "@/utils/httpRequest";
 import Button from "@/components/Button";
 import EditingForm from "./EditingForm";
 import styles from "./Profile.module.css";
+import UploadAvatar from "./UploadAvatar";
 
 function Profile() {
   const params = useParams();
 
   const [isLoading, setIsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { currentUser } = useCurrentUser();
   const [user, setUser] = useState(currentUser);
+  const isCurrentUser = params.username === currentUser?.username;
+
+  const [avatarFile, setAvatarFile] = useState(user?.image);
+  const avatar = user?.image ? URL.createObjectURL(user.image) : null;
 
   useEffect(() => {
     const fetchUser = async () => {
-      if (params.username === currentUser?.username) {
+      if (isCurrentUser) {
         setUser(currentUser);
         return;
       }
@@ -43,7 +49,17 @@ function Profile() {
     };
 
     fetchUser();
-  }, [params, user, currentUser]);
+  }, [params, user, currentUser, isCurrentUser]);
+
+  const handleUpload = (e) => {
+    console.log("handle upload");
+    const file = e.target.files[0];
+    if (file) {
+      console.log(file);
+      setAvatarFile(file);
+      setIsModalOpen(true);
+    }
+  };
 
   const onSubmit = async (data) => {
     setIsLoading(true);
@@ -70,10 +86,25 @@ function Profile() {
         ></div>
         <div className={styles.avatarContainer}>
           <img
-            src={user?.image || "https://picsum.photos/200/200"}
+            src={avatar || "https://picsum.photos/200/200"}
             alt={user?.username}
             className={styles.avatar}
           />
+          {isCurrentUser && (
+            <>
+              <label htmlFor="file" className={styles.uploadAvatar}>
+                Upload Avatar
+              </label>
+              <input
+                type="file"
+                name="file"
+                id="file"
+                accept="image/jpeg,image/png,image/jpg,image/gif"
+                style={{ display: "none" }}
+                onChange={handleUpload}
+              />
+            </>
+          )}
         </div>
       </div>
 
@@ -119,7 +150,7 @@ function Profile() {
               : "Unknown date"}
           </p>
 
-          {!isLoading && params.username === currentUser.username && (
+          {!isLoading && isCurrentUser && (
             <div className={styles.actionButtons}>
               <Button size="lg" onClick={() => setIsEditing(!isEditing)}>
                 {isEditing ? "Cancel Editing" : "Edit Profile"}
@@ -139,6 +170,13 @@ function Profile() {
             isLoading={isLoading}
           />
         </>
+      )}
+
+      {isModalOpen && (
+        <UploadAvatar
+          avatarFile={avatarFile}
+          toggleModal={() => setIsModalOpen(!isModalOpen)}
+        />
       )}
 
       <ToastContainer

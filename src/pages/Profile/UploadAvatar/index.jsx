@@ -3,18 +3,18 @@ import styles from "./UploadAvatar.module.css";
 import { useState } from "react";
 import httpRequest from "@/utils/httpRequest";
 
-function UploadAvatar({ avatarFile, userId, toggleModal }) {
+function UploadAvatar({ avatarFile, userId, closeModal, updateAvatar }) {
   const [isLoading, setIsLoading] = useState(false);
   const preview = URL.createObjectURL(avatarFile);
-  console.log(avatarFile);
 
   const handleUpdateAvatar = async () => {
     setIsLoading(true);
 
     const formData = new FormData();
     formData.append("image", avatarFile);
-    await httpRequest.post(`/users/${userId}?_method=patch`, formData);
-    toggleModal();
+    await httpRequest.patch(`/users/${userId}`, formData);
+    updateAvatar();
+    closeModal();
 
     setIsLoading(false);
   };
@@ -27,7 +27,7 @@ function UploadAvatar({ avatarFile, userId, toggleModal }) {
           <Button isLoading={isLoading} onClick={handleUpdateAvatar}>
             Update
           </Button>
-          <Button variant="destructive" onClick={toggleModal}>
+          <Button variant="destructive" onClick={closeModal}>
             Cancel
           </Button>
         </div>

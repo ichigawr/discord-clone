@@ -24,7 +24,7 @@ function Profile() {
   const isCurrentUser = params.username === currentUser?.username;
 
   const [avatarFile, setAvatarFile] = useState(user?.image);
-  const avatar = user?.image ? URL.createObjectURL(user.image) : null;
+  const [avatar, setAvatar] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -52,13 +52,12 @@ function Profile() {
   }, [params, user, currentUser, isCurrentUser]);
 
   const handleUpload = (e) => {
-    console.log("handle upload");
     const file = e.target.files[0];
     if (file) {
-      console.log(file);
       setAvatarFile(file);
       setIsModalOpen(true);
     }
+    e.target.value = null;
   };
 
   const onSubmit = async (data) => {
@@ -101,7 +100,7 @@ function Profile() {
                 id="file"
                 accept="image/jpeg,image/png,image/jpg,image/gif"
                 style={{ display: "none" }}
-                onChange={handleUpload}
+                onInputCapture={handleUpload}
               />
             </>
           )}
@@ -176,7 +175,14 @@ function Profile() {
         <UploadAvatar
           avatarFile={avatarFile}
           userId={currentUser?.id}
-          toggleModal={() => setIsModalOpen(!isModalOpen)}
+          closeModal={() => {
+            setIsModalOpen(false);
+          }}
+          updateAvatar={() => {
+            URL.revokeObjectURL(avatar);
+            const newAvatar = URL.createObjectURL(avatarFile);
+            setAvatar(newAvatar);
+          }}
         />
       )}
 

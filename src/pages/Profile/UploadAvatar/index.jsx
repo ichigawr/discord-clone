@@ -3,7 +3,7 @@ import styles from "./UploadAvatar.module.css";
 import { useState } from "react";
 import httpRequest from "@/utils/httpRequest";
 
-function UploadAvatar({ avatarFile, toggleModal }) {
+function UploadAvatar({ avatarFile, userId, toggleModal }) {
   const [isLoading, setIsLoading] = useState(false);
   const preview = URL.createObjectURL(avatarFile);
   console.log(avatarFile);
@@ -13,7 +13,7 @@ function UploadAvatar({ avatarFile, toggleModal }) {
 
     const formData = new FormData();
     formData.append("image", avatarFile);
-    await httpRequest.post("/users/1?_method=patch", formData);
+    await httpRequest.post(`/users/${userId}?_method=patch`, formData);
     toggleModal();
 
     setIsLoading(false);

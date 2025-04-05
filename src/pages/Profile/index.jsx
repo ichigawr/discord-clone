@@ -175,6 +175,7 @@ function Profile() {
       {isModalOpen && (
         <UploadAvatar
           avatarFile={avatarFile}
+          userId={currentUser?.id}
           toggleModal={() => setIsModalOpen(!isModalOpen)}
         />
       )}

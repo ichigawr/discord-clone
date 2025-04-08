@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import useDebounce from "./useDebounce";
 import authService from "@/services/authService";
+import useCurrentUser from "./useCurrentUser";
 
 const useCheckInfo = (type, formControl) => {
   const {
@@ -10,19 +11,26 @@ const useCheckInfo = (type, formControl) => {
   } = formControl;
   const value = watch(type);
   const debouncedEmail = useDebounce(value, 500);
+  const { currentUser } = useCurrentUser();
 
   useEffect(() => {
     if (!debouncedEmail || errors[type]) return;
 
-    const checkEmail = async () => {
-      const alreadyExist = await authService.checkInfo(type, debouncedEmail);
+    const checkInfo = async () => {
+      const alreadyExist = await authService.checkInfo(
+        type,
+        debouncedEmail,
+        currentUser.id
+      );
+
       if (alreadyExist) {
-        setError(type, { message: "Email already exists" });
+        const name = type[0].toUpperCase() + type.slice(1);
+        setError(type, { message: `${name} already exists` });
       }
     };
 
-    checkEmail();
-  }, [type, debouncedEmail, errors, setError]);
+    checkInfo();
+  }, [type, debouncedEmail, errors, setError, currentUser]);
 };
 
 export default useCheckInfo;

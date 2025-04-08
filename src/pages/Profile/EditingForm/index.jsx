@@ -1,24 +1,14 @@
-import { useEffect } from "react";
-import Button from "@/components/Button";
-import styles from "../Profile.module.css";
-import authService from "@/services/authService";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+
+import useCheckInfo from "@/hooks/useCheckInfo";
 import profileSchema from "@/schema/profileSchema";
 
-let emailTimerId = null;
-let phoneTimerId = null;
-let usernameTimerId = null;
+import Button from "@/components/Button";
+import styles from "../Profile.module.css";
 
 function EditingForm({ user, onSubmit, handleCancel, isLoading }) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-    setError,
-    reset,
-  } = useForm({
+  const formControl = useForm({
     mode: "onChange",
     resolver: yupResolver(profileSchema),
     defaultValues: {
@@ -34,54 +24,16 @@ function EditingForm({ user, onSubmit, handleCancel, isLoading }) {
     },
   });
 
-  const email = watch("email");
-  const phone = watch("phone");
-  const username = watch("username");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = formControl;
 
-  useEffect(() => {
-    if (!email) return;
-
-    clearTimeout(emailTimerId);
-    emailTimerId = setTimeout(async () => {
-      if (errors.email) return;
-
-      const alreadyExist = await authService.checkEmail(email, user?.id);
-
-      if (alreadyExist) {
-        setError("email", { message: "Email already exists" });
-      }
-    }, 500);
-  }, [email, errors, setError, user]);
-
-  useEffect(() => {
-    if (!phone) return;
-
-    clearTimeout(phoneTimerId);
-    phoneTimerId = setTimeout(async () => {
-      if (errors.phone) return;
-
-      const alreadyExist = await authService.checkPhone(phone, user?.id);
-
-      if (alreadyExist) {
-        setError("phone", { message: "Phone already exists" });
-      }
-    }, 500);
-  }, [phone, errors, setError, user]);
-
-  useEffect(() => {
-    if (!username) return;
-
-    clearTimeout(usernameTimerId);
-    usernameTimerId = setTimeout(async () => {
-      if (errors.username) return;
-
-      const alreadyExist = await authService.checkUsername(username, user?.id);
-
-      if (alreadyExist) {
-        setError("username", { message: "Username already exists" });
-      }
-    }, 500);
-  }, [username, errors, setError, user]);
+  useCheckInfo("email", formControl);
+  useCheckInfo("phone", formControl);
+  useCheckInfo("username", formControl);
 
   const onCancel = () => {
     reset();

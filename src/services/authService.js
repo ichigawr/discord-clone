@@ -24,7 +24,7 @@ export const checkInfo = async (type, value, excludeId = "") => {
   const res = await httpRequest.get(
     `auth/check-${type}?${type}=${value}&exclude_id=${excludeId}`
   );
-  return res.exists;
+  return res.data.exists;
 };
 
 export default {

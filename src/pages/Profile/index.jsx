@@ -23,8 +23,8 @@ function Profile() {
   const [user, setUser] = useState(currentUser);
   const isCurrentUser = params.username === currentUser?.username;
 
-  const [avatarFile, setAvatarFile] = useState(user?.image);
-  const [avatar, setAvatar] = useState(null);
+  const [avatarFile, setAvatarFile] = useState(null);
+  const [avatar, setAvatar] = useState(user?.image);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -178,10 +178,9 @@ function Profile() {
           closeModal={() => {
             setIsModalOpen(false);
           }}
-          updateAvatar={() => {
+          updateAvatar={(preview) => {
             URL.revokeObjectURL(avatar);
-            const newAvatar = URL.createObjectURL(avatarFile);
-            setAvatar(newAvatar);
+            setAvatar(preview);
           }}
         />
       )}

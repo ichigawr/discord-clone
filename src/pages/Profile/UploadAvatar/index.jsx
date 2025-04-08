@@ -12,8 +12,8 @@ function UploadAvatar({ avatarFile, userId, closeModal, updateAvatar }) {
 
     const formData = new FormData();
     formData.append("image", avatarFile);
-    await httpRequest.patch(`/users/${userId}`, formData);
-    updateAvatar();
+    await httpRequest.post(`/users/${userId}?_method=patch`, formData);
+    updateAvatar(preview);
     closeModal();
 
     setIsLoading(false);
@@ -27,7 +27,10 @@ function UploadAvatar({ avatarFile, userId, closeModal, updateAvatar }) {
           <Button isLoading={isLoading} onClick={handleUpdateAvatar}>
             Update
           </Button>
-          <Button variant="destructive" onClick={closeModal}>
+          <Button variant="destructive" onClick={() => {
+            URL.revokeObjectURL(preview);
+            closeModal();
+          }}>
             Cancel
           </Button>
         </div>

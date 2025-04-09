@@ -1,13 +1,13 @@
 import Button from "@/components/Button";
 import styles from "./UploadAvatar.module.css";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import httpRequest from "@/utils/httpRequest";
 
 function UploadAvatar({ avatarFile, userId, closeModal, updateAvatar }) {
   const [isLoading, setIsLoading] = useState(false);
   const preview = URL.createObjectURL(avatarFile);
 
-  const handleUpdateAvatar = async () => {
+  const handleUpdateAvatar = useCallback(async () => {
     setIsLoading(true);
 
     const formData = new FormData();
@@ -17,7 +17,7 @@ function UploadAvatar({ avatarFile, userId, closeModal, updateAvatar }) {
     closeModal();
 
     setIsLoading(false);
-  };
+  }, [avatarFile, closeModal, preview, updateAvatar, userId]);
 
   return (
     <div className={styles.modal}>

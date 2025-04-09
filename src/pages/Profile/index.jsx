@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 
@@ -51,16 +51,16 @@ function Profile() {
     fetchUser();
   }, [params, user, currentUser, isCurrentUser]);
 
-  const handleUpload = (e) => {
+  const handleUpload = useCallback((e) => {
     const file = e.target.files[0];
     if (file) {
       setAvatarFile(file);
       setIsModalOpen(true);
     }
     e.target.value = null;
-  };
+  }, []);
 
-  const onSubmit = async (data) => {
+  const onSubmit = useCallback(async (data) => {
     setIsLoading(true);
 
     try {
@@ -74,7 +74,7 @@ function Profile() {
     }
 
     setIsLoading(false);
-  };
+  }, []);
 
   return (
     <div className={styles.profileContainer}>

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import PropTypes from "prop-types";
 import validateProps from "@/utils/validateProps";
 import styles from "./Avatar.module.css";
@@ -20,4 +21,4 @@ Avatar.propTypes = {
   status: PropTypes.bool,
 };
 
-export default Avatar;
+export default memo(Avatar);

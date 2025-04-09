@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -35,10 +36,10 @@ function EditingForm({ user, onSubmit, handleCancel, isLoading }) {
   useCheckInfo("phone", formControl);
   useCheckInfo("username", formControl);
 
-  const onCancel = () => {
+  const onCancel = useCallback(() => {
     reset();
     handleCancel();
-  };
+  }, [reset, handleCancel]);
 
   return (
     <form className={styles.editForm} onSubmit={handleSubmit(onSubmit)}>

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import useCheckInfo from "@/hooks/useCheckInfo";
 
 import config from "@/config";
-import registerSchema from "@/schema/registerSchema";
+import registerSchema from "@/schemas/registerSchema";
 import authService from "@/services/authService";
 import httpRequest from "@/utils/httpRequest";
 

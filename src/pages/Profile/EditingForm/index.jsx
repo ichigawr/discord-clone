@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import useCheckInfo from "@/hooks/useCheckInfo";
-import profileSchema from "@/schema/profileSchema";
+import profileSchema from "@/schemas/profileSchema";
 
 import Button from "@/components/Button";
 import styles from "../Profile.module.css";

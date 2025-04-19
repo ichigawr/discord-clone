@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 import config from "@/config";
-import loginSchema from "@/schema/loginSchema";
+import loginSchema from "@/schemas/loginSchema";
 import authService from "@/services/authService";
 import httpRequest from "@/utils/httpRequest";
 

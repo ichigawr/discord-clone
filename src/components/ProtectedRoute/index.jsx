@@ -1,12 +1,12 @@
 import { Navigate, useLocation } from "react-router-dom";
-import useCurrentUser from "@/hooks/useCurrentUser";
-import config from "@/config";
+import { useSelector } from "react-redux";
 import useLoading from "@/hooks/useLoading";
+import config from "@/config";
 
 function ProtectedRoute({ children }) {
   const location = useLocation();
-  const { currentUser } = useCurrentUser();
   const { loading } = useLoading();
+  const currentUser = useSelector((state) => state.auth.currentUser);
 
   if (loading) return null;
 

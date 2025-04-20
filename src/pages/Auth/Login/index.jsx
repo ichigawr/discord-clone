@@ -2,22 +2,23 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import config from "@/config";
 import loginSchema from "@/schemas/loginSchema";
 import authService from "@/services/authService";
 import httpRequest from "@/utils/httpRequest";
+import { getCurrentUser } from "@/reducers/auth/actions";
 
 import Button from "@/components/Button";
-import styles from "../Auth.module.css";
 import ErrorMessage from "../ErrorMessage";
-import useCurrentUser from "@/hooks/useCurrentUser";
+import styles from "../Auth.module.css";
 
 function Login() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
+  const dispatch = useDispatch();
 
-  const { fetchCurrentUser } = useCurrentUser();
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -40,7 +41,7 @@ function Login() {
 
     if (res.status === "success") {
       httpRequest.setToken(res.data.access_token);
-      await fetchCurrentUser();
+      dispatch(getCurrentUser());
       navigate(params.get("continue") || config.routes.home);
     } else {
       const message = "Login or password is invalid.";

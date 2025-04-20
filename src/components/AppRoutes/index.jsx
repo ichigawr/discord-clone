@@ -1,9 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import { AuthProvider } from "@/contexts/AuthContext";
 
 import NoLayout from "@/layouts/NoLayout";
-import routes from "@/routes";
 import ProtectedRoute from "../ProtectedRoute";
+import routes from "@/routes";
 
 function AppRoutes() {
   return (

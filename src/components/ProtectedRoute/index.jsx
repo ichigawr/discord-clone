@@ -7,6 +7,7 @@ function ProtectedRoute({ children }) {
   const location = useLocation();
   const { loading } = useLoading();
   const currentUser = useSelector((state) => state.auth.currentUser);
+  console.log(currentUser);
 
   if (loading) return null;
 

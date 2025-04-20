@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { getCurrentUser } from "@/reducers/auth/actions";
 import useLoading from "@/hooks/useLoading";
 
-
 function AuthProvider() {
   const { setLoading } = useLoading();
   const dispatch = useDispatch();
@@ -16,4 +15,3 @@ function AuthProvider() {
 }
 
 export { AuthProvider };
-

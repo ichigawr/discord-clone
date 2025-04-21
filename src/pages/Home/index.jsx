@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import useCurrentUser from "@/hooks/useCurrentUser";
 
 import config from "@/config";
 import authService from "@/services/authService";
@@ -11,7 +11,7 @@ import styles from "./Home.module.css";
 
 function Home() {
   const navigate = useNavigate();
-  const currentUser = useSelector((state) => state.auth.currentUser);
+  const currentUser = useCurrentUser();
 
   const handleLogout = async () => {
     const res = await authService.logout();

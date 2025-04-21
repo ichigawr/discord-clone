@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { Bounce, toast, ToastContainer } from "react-toastify";
+import useCurrentUser from "@/hooks/useCurrentUser";
 
-import httpRequest from "@/utils/httpRequest";
 import userService from "@/services/userService";
+import httpRequest from "@/utils/httpRequest";
 
 import Button from "@/components/Button";
 import EditingForm from "./EditingForm";
@@ -18,7 +18,7 @@ function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const currentUser = useSelector((state) => state.auth.currentUser);
+  const currentUser = useCurrentUser();
   const [user, setUser] = useState(currentUser);
   const isCurrentUser = params.username === currentUser?.username;
 

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import useCurrentUser from "./useCurrentUser";
 import useDebounce from "./useDebounce";
 import authService from "@/services/authService";
 
@@ -11,7 +11,7 @@ const useCheckInfo = (type, formControl) => {
   } = formControl;
   const value = watch(type);
   const debouncedEmail = useDebounce(value, 500);
-  const currentUser = useSelector((state) => state.auth.currentUser);
+  const currentUser = useCurrentUser();
 
   useEffect(() => {
     if (!debouncedEmail || errors[type]) return;

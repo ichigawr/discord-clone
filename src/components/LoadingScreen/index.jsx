@@ -1,6 +1,6 @@
 import logo from "@/assets/logos/logo.png";
-import spinningLogoMp4 from "@/assets/videos/spinning-logo.mp4";
-import spinningLogoWebm from "@/assets/videos/spinning-logo.webm";
+// import spinningLogoMp4 from "@/assets/videos/spinning-logo.mp4";
+// import spinningLogoWebm from "@/assets/videos/spinning-logo.webm";
 
 function LoadingScreen() {
   return (
@@ -18,8 +18,8 @@ function LoadingScreen() {
         loop
         playsInline
       >
-        <source src={spinningLogoWebm} type="video/webm" />
-        <source src={spinningLogoMp4} type="video/mp4" />
+        <source src="/videos/spinning-logo.webm" type="video/webm" />
+        <source src="/videos/spinning-logo.mp4" type="video/mp4" />
         <img src={logo} alt="" />
       </video>
     </div>

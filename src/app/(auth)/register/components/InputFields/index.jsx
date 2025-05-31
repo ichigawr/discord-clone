@@ -1,4 +1,4 @@
-import ErrorMessage from "../../ErrorMessage";
+import ErrorMessage from "../../../components/ErrorMessage";
 import styles from "@/pages/Auth/Auth.module.css";
 
 function InputFields({ formControl }) {

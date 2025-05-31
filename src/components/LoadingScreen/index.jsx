@@ -1,6 +1,4 @@
 import logo from "@/assets/logos/logo.png";
-// import spinningLogoMp4 from "@/assets/videos/spinning-logo.mp4";
-// import spinningLogoWebm from "@/assets/videos/spinning-logo.webm";
 
 function LoadingScreen() {
   return (

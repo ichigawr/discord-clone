@@ -13,8 +13,8 @@ import httpRequest from "@/utils/httpRequest";
 import { getCurrentUser } from "@/reducers/auth/actions";
 
 import Button from "@/components/Button";
-import DateOfBirth from "./DateOfBirth";
-import InputFields from "./InputFields";
+import DateOfBirth from "./components/DateOfBirth";
+import InputFields from "./components/InputFields";
 import styles from "../Auth.module.css";
 
 function Register() {

@@ -5,11 +5,11 @@ import config from "@/config";
 import authService from "@/services/authService";
 
 import Button from "@/components/Button";
-import FriendsList from "./FriendsList";
-import SideBar from "./SideBar";
-import styles from "./Home.module.css";
+import FriendsList from "./components/FriendsList";
+import SideBar from "./components/SideBar";
+import styles from "./DirectMessages.module.css";
 
-function Home() {
+function DirectMessages() {
   const navigate = useNavigate();
   const currentUser = useCurrentUser();
 
@@ -42,4 +42,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default DirectMessages;

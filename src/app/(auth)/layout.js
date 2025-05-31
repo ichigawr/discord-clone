@@ -1,26 +1,23 @@
-import { Outlet } from "react-router-dom";
-
 import logoWithText from "@/assets/logos/logo-with-text.svg";
 import backgroundArtwork from "@/assets/svgs/background-artwork.svg";
-import styles from "./AuthPageLayout.module.css";
+import styles from "./Auth.module.css";
 
-function AuthPageLayout() {
+function AuthLayout({ children }) {
   return (
     <div className="container">
       <img
         className={styles.artwork}
-        src={backgroundArtwork}
+        src={backgroundArtwork.src}
         alt="Background Artwork"
       />
       <img
         className={styles.logoWithText}
-        src={logoWithText}
+        src={logoWithText.src}
         alt="Logo With Text"
       />
-
-      <Outlet />
+      {children}
     </div>
   );
 }
 
-export default AuthPageLayout;
+export default AuthLayout;

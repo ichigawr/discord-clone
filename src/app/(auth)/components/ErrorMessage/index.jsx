@@ -1,5 +1,5 @@
 import validateProps from "@/utils/validateProps";
-import styles from "../Auth.module.css";
+import styles from "@/app/(auth)/Auth.module.css";
 import PropTypes from "prop-types";
 
 function ErrorMessage({ errorMessage }) {

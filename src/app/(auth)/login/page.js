@@ -1,8 +1,10 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate, useSearchParams } from "react-router-dom";
+"use client";
+
+import { useRouter } from "next/navigation";
+import { use, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import config from "@/config";
 import loginSchema from "@/schemas/loginSchema";
@@ -11,12 +13,12 @@ import httpRequest from "@/utils/httpRequest";
 import { getCurrentUser } from "@/reducers/auth/actions";
 
 import Button from "@/components/Button";
-import ErrorMessage from "../ErrorMessage";
+import ErrorMessage from "../components/ErrorMessage";
 import styles from "../Auth.module.css";
 
-function Login() {
-  const navigate = useNavigate();
-  const [params] = useSearchParams();
+function Login({searchParams}) {
+  const router = useRouter();
+  const { continue: continueRedirectPath } = use(searchParams);
   const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -42,7 +44,7 @@ function Login() {
     if (res.status === "success") {
       httpRequest.setToken(res.data.access_token);
       dispatch(getCurrentUser());
-      navigate(params.get("continue") || config.routes.home);
+      router.push(continueRedirectPath || config.routes.home);
     } else {
       const message = "Login or password is invalid.";
       setError("email", { message });
